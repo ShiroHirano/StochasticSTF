@@ -18,7 +18,6 @@ function out=StochasticSTF(n,r,d)
 end
 
 function out=BesselBridge(n,d)
-    x=zeros(n,d);
     x=BrownBridges(n,d);
     out=rms(x,2);
 end
