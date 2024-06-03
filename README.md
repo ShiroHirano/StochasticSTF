@@ -23,7 +23,7 @@ The result is normalized so that `sum(STF) = 1.0` holds.
 The algorithm has been modified after Hirano(2022; 2023).
 This code generates STFs with arbitrary lengths by using Bessel bridges, while the original model has probabilistic lengths following the Gutenberg-Richter law.
 
-## Reference
+## References
 + Hirano, S. (2022), "Source time functions of earthquakes based on a stochastic differential equation", Scientific Reports, 12:3936, [https://doi.org/10.1038/s41598-022-07873-2](https://doi.org/10.1038/s41598-022-07873-2)
 + Hirano, S. (2023), "Stochastic source time functions with double corner frequencies", AGU23 Fall Meeting, S13F-0407, [https://agu.confex.com/agu/fm23/meetingapp.cgi/Paper/1299761](https://agu.confex.com/agu/fm23/meetingapp.cgi/Paper/1299761)
 
