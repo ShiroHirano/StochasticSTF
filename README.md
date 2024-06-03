@@ -41,7 +41,7 @@ results in an ascii file `STF.txt`, and the column therein is the amplitude of a
 
 To specity precision, see the comments in `m_stochasticSTF.f90`.
 
-## Julia and Matlab: Usage and Compilation
+## Julia and Matlab: Usage
 
 Running `main.jl` or `main.m` calculates and plots a stochastic STF.
 
