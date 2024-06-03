@@ -14,10 +14,18 @@ returns a stochastic Source Time Function (STF) of length `n` that satisfies the
 + The Fourier amplitude spectrum follows $\omega^{-2}$-model.
 + The moment function $M_0(t)$ is propotional to $t^3$.
 
+![img/SSTFs.png](img/SSTFs.png)
+
+Running
+```
+x = StochasticSTF(n, r)
+```
+with a floating-point number `r` $(> 1.0)$ results in more complicated STFs as in the above figure.
+
 ## Arguments and behavior
 
 The function `StochasticSTF(n,r)` or `StochasticSTF(n,r,d)` returns a stochastic Source Time Function (STF) of length `n`.
-The floating-point number `r` $(> 0)$ is the ratio of two corner frequencies and determines roughness of the STF, where `r=1.0` results in STF with the $\omega^{-2}$-type spectrum, and STFs get rougher as `r` increases.
+The floating-point number `r` $(\ge 1.0)$ is the ratio of two corner frequencies and determines roughness of the STF, where `r=1.0` results in STF with the $\omega^{-2}$-type spectrum, and STFs get rougher as `r` increases.
 Integer `d` $(\ge 2)$, dimension of the Bessel bridge, is optional; the default value is `d=2`, and STFs get smoother as `d` increases.
 The result is normalized so that `sum(STF) = 1.0` holds.
 The algorithm has been modified after Hirano(2022; 2023).
