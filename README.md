@@ -44,3 +44,5 @@ To specity precision, see the comments in `m_stochasticSTF.f90`.
 ## Julia and Matlab: Usage and Compilation
 
 Running `main.jl` or `main.m` calculates and plots a stochastic STF.
+
+LinearAlgebra, DSP, and Plots are required for julia.
