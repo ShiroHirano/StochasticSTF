@@ -96,11 +96,22 @@ module m_stochasticSTF
 
     subroutine SetSeed(seed)
         integer,intent(out),allocatable :: seed(:)
-        integer :: time, seed_size
+        integer(8) :: time
+        integer :: seed_size
         call random_seed(size=seed_size)
         allocate(seed(seed_size))
         call system_clock(count=time)
-        seed = time
+        seed = flipped_integer(time)
     end subroutine SetSeed
+
+    integer function flipped_integer(n)
+        integer(8),intent(in) :: n
+        integer :: i, k
+        flipped_integer = 0
+        do i=1,9
+            k = mod(n,10**i)/10**(i-1)
+            flipped_integer = flipped_integer + k*10**(9-i)
+        end do
+    end function flipped_integer
 
 end module m_stochasticSTF
