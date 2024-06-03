@@ -85,10 +85,22 @@ module m_stochasticSTF
         real(kd),parameter :: pi = acos(-1d0)
         integer,intent(in) :: n, d
         real(kd),allocatable :: GaussianNoises(:,:), rand(:,:,:)
+        integer,allocatable :: seed(:)
         allocate(rand(n,d,2))
+        call SetSeed(seed)
+        call random_seed(put=seed)
         call random_number(rand)
         rand = 1d0 - rand ! 0 <= rand < 1, but 0 < rand for the next procedure 
         GaussianNoises = sqrt(-2d0*log(rand(:,:,1)))*cos(2d0*pi*rand(:,:,2)) ! Box-Muller's method
     end function GaussianNoises
+
+    subroutine SetSeed(seed)
+        integer,intent(out),allocatable :: seed(:)
+        integer :: time, seed_size
+        call random_seed(size=seed_size)
+        allocate(seed(seed_size))
+        call system_clock(count=time)
+        seed = time
+    end subroutine SetSeed
 
 end module m_stochasticSTF
