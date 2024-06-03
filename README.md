@@ -12,7 +12,7 @@ returns a stochastic Source Time Function (STF) of length `n` that satisfies the
 + The STF starts from and terminates at zero (i.e., `x(1) = x(n) = 0`).
 + The STF amplitude is non-negative.
 + The Fourier amplitude spectrum follows $\omega^{-2}$-model.
-+ The moment function $M_0(t)$ is propotional to $t^3$.
++ The moment function $M_0(t) = \displaystyle\int_0^t \textrm{StochasticSTF}(s) \ ds$ is propotional to $t^3$.
 
 ![img/SSTFs.png](img/SSTFs.png)
 
