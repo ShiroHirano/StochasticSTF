@@ -7,7 +7,7 @@ plot(x)
 
 function out=StochasticSTF(n,r,d)
     if (~exist('d','var'))
-         d = 2
+         d = 2;
     end
     n1=floor(n*r/(1+r));
     n2=n-n1+1;
