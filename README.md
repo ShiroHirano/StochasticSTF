@@ -4,7 +4,7 @@
 
 ## Summary
 
-In fortran90+, julia, and matlab code, 
+In fortran90+, julia, matlab, and python code, 
 ```
 x = StochasticSTF(n, 1.0)
 ```
@@ -49,8 +49,8 @@ results in an ascii file `STF.txt`, and the column therein is the amplitude of a
 
 To specity precision, see the comments in `m_stochasticSTF.f90`.
 
-## Julia and Matlab: Usage
+## Julia, Matlab, python: Usage
 
-Running `main.jl` or `main.m` calculates and plots a stochastic STF.
+Running `main.jl`, `main.m`, or `main.py` calculates and plots a stochastic STF.
 
 LinearAlgebra, DSP, and Plots are required for julia.
