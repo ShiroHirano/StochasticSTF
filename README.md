@@ -6,7 +6,7 @@
 
 In fortran90+, julia, matlab, and python code, 
 ```
-x = StochasticSTF(n, 1.0)
+x = StochasticSTF(n)
 ```
 returns a stochastic Source Time Function (STF) of length `n` that satisfies the following properties:
 + The STF starts from and terminates at zero (i.e., `x(1) = x(n) = 0`).
@@ -24,8 +24,8 @@ with a floating-point number `r` $(> 1.0)$ results in more complicated STFs as i
 
 ## Arguments and behavior
 
-The function `StochasticSTF(n,r)` or `StochasticSTF(n,r,d)` returns a stochastic Source Time Function (STF) of length `n`.
-The floating-point number `r` $(\ge 1.0)$ is the ratio of two corner frequencies and determines roughness of the STF, where `r=1.0` results in STF with the $\omega^{-2}$-type spectrum, and STFs get rougher as `r` increases.
+The function `StochasticSTF(n,r,d)` returns a stochastic Source Time Function (STF) of length `n`, where `r` and `d` are optional paramters.
+The floating-point number `r` $(\ge 1.0)$ is the ratio of two corner frequencies and determines roughness of the STF, where the default value (`r=1.0`) results in STF with the $\omega^{-2}$-type spectrum, and STFs get rougher as `r` increases.
 Integer `d` $(\ge 2)$, dimension of the Bessel bridge, is optional; the default value is `d=2`, and STFs get smoother as `d` increases.
 The result is normalized so that `sum(STF) = 1.0` holds.
 The algorithm has been modified after Hirano(2022; 2023).
