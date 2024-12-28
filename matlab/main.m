@@ -6,6 +6,9 @@ x = StochasticSTF(n,r);
 plot(x)
 
 function out=StochasticSTF(n,r,d)
+    if (~exist('r','var'))
+         r = 1.0;
+    end
     if (~exist('d','var'))
          d = 2;
     end
