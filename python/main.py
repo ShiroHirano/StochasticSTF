@@ -12,7 +12,7 @@ def BesselBridge(n,d):
     BB = BrownBridge(n,d)
     return np.sqrt(np.square(BB).mean(axis=1))
 
-def StochasticSTF(n,r,d=2):
+def StochasticSTF(n,r=1.0,d=2):
     n1 = int(np.floor(n*r/(1+r)))
     n2 = n-n1+1
     B1 = BesselBridge(n1+1,d)
