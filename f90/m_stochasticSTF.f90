@@ -4,14 +4,8 @@ module m_stochasticSTF
 !    see lines 2-7 in main.f90
 !
 ! More information
-!    Callable function StochasticSTF(n,r) or StochasticSTF(n,r,d)
+!    StochasticSTF(n), StochasticSTF(n,r), or StochasticSTF(n,r,d)
 !    returns a stochastic Source Time Function (STF) of length n.
-!    The floating-point number r (> 0) is the ratio of
-!    two corner frequencies and determines roughness of the STF,
-!    where r=1.0 results in STF with the omega-square-type spectrum,
-!    and the larger abs(log(r)) yields the rougher STF.
-!    Integer d (>=2), dimension of the Bessel bridge,
-!    is optional; the default value is d=2.
 !    The result is normalized so that sum(STF) = 1.0 holds.
 !    To specity precision, see the "use" statement
 !    and modify as "kd=>real32" or "kd=>real64".
@@ -19,7 +13,7 @@ module m_stochasticSTF
 !    This code generates STFs with arbitrary lengths by using Bessel bridges,
 !    while the original model has probabilistic lengths.
 !
-! Reference
+! References
 !    Hirano, S. (2022), "Source time functions of earthquakes based on a stochastic differential equation", Scientific Reports, 12:3936, https://doi.org/10.1038/s41598-022-07873-2
 !    Hirano, S. (2023), "Stochastic source time functions with double corner frequencies", AGU23 Fall Meeting, S13F-0407, https://agu.confex.com/agu/fm23/meetingapp.cgi/Paper/1299761
 
@@ -31,24 +25,30 @@ module m_stochasticSTF
 
     contains
 
-    function StochasticSTF(n,r,d)
+    function StochasticSTF(n,r_in,d_in)
         implicit none
         integer,intent(in) :: n ! length of the array (>= 30 is recommended)
-        real(kd),intent(in) :: r ! ratio of two corner frequencies (>= 1.0)
-        integer,intent(in),optional :: d ! dimension of Brownian bridge (>= 2)
-        integer :: d_in
+        real(kd),intent(in),optional :: r_in ! ratio of two corner frequencies (>= 1.0)
+        integer,intent(in),optional :: d_in ! dimension of Brownian bridge (>= 2)
+        real(kd) :: r
+        integer :: d
         real(kd),allocatable :: x(:), y(:), StochasticSTF(:)
         integer :: l(2), i
-        if (present(d)) then
-            d_in = d
+        if (present(r_in)) then
+            r = r_in
         else
-            d_in = 2
+            r = real(1d0,kd)
+        end if
+        if (present(d_in)) then
+            d = d_in
+        else
+            d = 2
         end if
         l(1) = nint(n*r/(1d0+r)) ! l(1) / l(2) = r, and
         l(2) = n - l(1) + 1      ! l(1) + l(2) = n+1
         allocate(x(n),y(n),StochasticSTF(n),source=real(0d0,kd))
-        x(:l(1)) = BesselBridge(l(1),d_in)
-        y(n-l(2)+1:n) = BesselBridge(l(2),d_in)
+        x(:l(1)) = BesselBridge(l(1),d)
+        y(n-l(2)+1:n) = BesselBridge(l(2),d)
         do concurrent (i=1:n)
             StochasticSTF(i) = dot_product(x(:i),y(n+1-i:)) ! inner product (x,y)
         end do
