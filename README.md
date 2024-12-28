@@ -14,13 +14,13 @@ returns a stochastic Source Time Function (STF) of length `n` that satisfies the
 + The Fourier amplitude spectrum follows $\omega^{-2}$-model.
 + The moment function $M_0(t) = \displaystyle\int_0^t \textrm{STF}(s) \ ds$ is propotional to $t^3$.
 
-![img/SSTFs.png](img/SSTFs.png)
-
 Running
 ```
 x = StochasticSTF(n, r)
 ```
-with a floating-point number `r` $(> 1.0)$ results in more complicated STFs as in the above figure.
+with a floating-point number `r` $(> 1.0)$ results in more complicated STFs as in the following figure.
+
+![img/SSTFs.png](img/SSTFs.png)
 
 ## Arguments and behavior
 
