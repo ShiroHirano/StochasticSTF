@@ -22,6 +22,7 @@ module m_stochasticSTF
     private
     public :: kd
     public :: StochasticSTF
+    public :: output_svg_path
 
     contains
 
@@ -91,5 +92,23 @@ module m_stochasticSTF
         rand = 1d0 - rand ! 0 <= rand < 1, but 0 < rand for the next procedure 
         GaussianNoises = sqrt(-2d0*log(rand(:,:,1)))*cos(2d0*pi*rand(:,:,2)) ! Box-Muller's method
     end function GaussianNoises
+
+    subroutine output_svg_path(y)
+        real(kd), intent(in) :: y(:)
+        integer :: i, n
+        n = size(y)
+        open(00,file="STF.svg")
+        write(00,'(1a)',advance="no") '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '
+        write(00,'(1G0," ",1G0)',advance="no") n, n/2
+        write(00,'(1a)') '"><path d="M'
+        do i = 1, n
+            write(00,'(1G0," ",1es13.7)') i-1, y(i)
+        end do
+        write(00, '(1a)',advance="no") '" transform="translate(0,'
+        write(00,'(1G0)',advance="no") floor(n*0.5)
+        write(00,'(1a)',advance="no") ') scale(1, '
+        write(00,'(1G0)',advance="no") -n/2*n/3
+        write(00,'(1a)',advance="no") ')" style="fill:#0000ff;fill-opacity:0.25;" /></svg>'
+    end subroutine output_svg_path
 
 end module m_stochasticSTF
