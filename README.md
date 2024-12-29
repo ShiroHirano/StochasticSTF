@@ -45,7 +45,9 @@ For example,
 gfortran m_stochasticSTF.f90 main.f90
 ./a.out
 ```
-results in an ascii file `STF.txt`, and the column therein is the amplitude of a stochastic source time function. See lines 2-7 in `main.f90` for usage.
+results in `STF.svg`, and the second column therein is the amplitude of a stochastic source time function. 
+Ignore the first and last line of the file to get numerics.
+See comments in the source codes for usage.
 
 To specity precision, see the comments in `m_stochasticSTF.f90`.
 
