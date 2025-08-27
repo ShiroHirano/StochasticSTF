@@ -1,21 +1,9 @@
 module m_stochasticSTF
 
 ! Usage
-!    see lines 2-7 in main.f90
-!
-! More information
-!    StochasticSTF(n), StochasticSTF(n,r), or StochasticSTF(n,r,d)
-!    returns a stochastic Source Time Function (STF) of length n.
-!    The result is normalized so that sum(STF) = 1.0 holds.
-!    To specity precision, see the "use" statement
+!    see main.f90
+!    To specity precision, see the "use" statement of this module
 !    and modify as "kd=>real32" or "kd=>real64".
-!    The algorithm has been modified after Hirano(2022; 2023).
-!    This code generates STFs with arbitrary lengths by using Bessel bridges,
-!    while the original model has probabilistic lengths.
-!
-! References
-!    Hirano, S. (2022), "Source time functions of earthquakes based on a stochastic differential equation", Scientific Reports, 12:3936, https://doi.org/10.1038/s41598-022-07873-2
-!    Hirano, S. (2023), "Stochastic source time functions with double corner frequencies", AGU23 Fall Meeting, S13F-0407, https://agu.confex.com/agu/fm23/meetingapp.cgi/Paper/1299761
 
     use iso_fortran_env, only : kd=>real64 ! real32 for single, or real64 for double
     implicit none
@@ -35,16 +23,8 @@ module m_stochasticSTF
         integer :: d
         real(kd),allocatable :: x(:), y(:), StochasticSTF(:)
         integer :: l(2), i
-        if (present(r_in)) then
-            r = r_in
-        else
-            r = real(1d0,kd)
-        end if
-        if (present(d_in)) then
-            d = d_in
-        else
-            d = 2
-        end if
+        r = merge(r_in, real(1d0,kd), present(r_in)) ! Ternary operation
+        d = merge(d_in, 2, present(d_in))            ! Ternary operation
         l(1) = nint(n*r/(1d0+r)) ! l(1) / l(2) = r, and
         l(2) = n - l(1) + 1      ! l(1) + l(2) = n+1
         allocate(x(n),y(n),StochasticSTF(n),source=real(0d0,kd))
@@ -109,6 +89,7 @@ module m_stochasticSTF
         write(00,'(1a)',advance="no") ') scale(1, '
         write(00,'(1G0)',advance="no") -n/2*n/3
         write(00,'(1a)',advance="no") ')" style="fill:#0000ff;fill-opacity:0.25;" /></svg>'
+        close(00)
     end subroutine output_svg_path
 
 end module m_stochasticSTF
